@@ -1,0 +1,116 @@
+---
+title: "Reading files from the Web"
+author: "Barboza-Salerno"
+date: "`r Sys.Date()`"
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Reading Files from the Web
+We want to explore infant mortality by race in Chicago. Let's first read the data into R. From the lecture, we know that the library RSocrata is what we need to read data from this portal into R. 
+
+```{r}
+library(RSocrata)
+infant_mortality_data <- 
+  read.socrata("https://datacatalog.cookcountyil.gov/api/odata/v4/cjeq-bs86") 
+
+```
+
+Also from the lecture we know that the tidyverse tools are very useful for manipulation. The package dplyr is part of the tidyverse and allows us to filter, select, recode, reshape and perform a long list of other data wrangling functions. First, lets look at our data. The function 'glimpse' in dplyr lets us look at the data. We can also open the full dataset by clikcing the data in the 'Data' tab in RStudio.
+
+Recall I mentioned that it is good programming practice to include library::function such as dplyr::glimpse. This is particularly important when using dplyr for reasons I will discuss in class.
+
+```{r}
+library(dplyr)
+dplyr::glimpse(infant_mortality_data)
+```
+First, lets select age under 1 years old, to capture infants only.
+
+```{r}
+infant_mortality_data_under1 <- 
+  infant_mortality_data %>%
+  filter(age < 1) 
+```
+Now we need to remove all missing cases because they cannot be analyzed. This is easy in dplyr.
+
+```{r}
+infant_mortality_data_under1_removeNA <- 
+  infant_mortality_data_under1 %>%
+  na.omit() %>%
+  distinct()
+
+```
+Notice that we have reduced the death data from over 77,000 cases to only 458 by selecting and filtering the data. Let's take a look.
+
+```{r}
+table(infant_mortality_data_under1_removeNA$race)
+```
+
+You should be outraged with this outcome but in fact it is even worse for people of color than these numbers suggest. **Why**?
+
+There is a nifty way to get percentages from this table automatically. Here is how.... use prop.table
+
+```{r}
+prop.table(table(infant_mortality_data_under1_removeNA$race)) *100
+```
+
+Note: check that this is correct
+
+```{r}
+library(stringr)
+infant_mortality_data_under1_removeNA_noempty <- infant_mortality_data_under1_removeNA %>%
+  filter(str_trim(race) != "")
+```
+
+```{r}
+prop.table(table(infant_mortality_data_under1_removeNA_noempty$race)) *100
+```
+
+```{r}
+round(prop.table(table(infant_mortality_data_under1_removeNA_noempty$race)) *100, 2)
+```
+
+```{r}
+mytable <- round(prop.table(table(infant_mortality_data_under1_removeNA_noempty$race)) *100, 2)
+```
+
+```{r}
+barplot(mytable, ylab = "Percent", xlab = "Race", main = "Infant Mortality in Cook County")
+```
+
+## Your turn
+This dataset is for all of Cook County. Recall,we are interested in the city of Chicago. Filter the data to return only the city of Chicago and re-run the chart. 
+
+```{r, echo=TRUE,eval=FALSE}
+infant_mortality_data_under1_removeNA_noempty_CHI <- infant_mortality_data_under1_removeNA_noempty %>%
+  dplyr::filter(XXXX == "XXXX")
+
+mytable <- round(prop.table(table(infant_mortality_data_under1_removeNA_noempty_CHI$race)) *100, 2)
+
+barplot(mytable, ylab = "Percent", xlab = "Race", main = "XXXXX")
+
+```
+
+```{r}
+infant_mortality_data_under1_removeNA_noempty <- 
+  infant_mortality_data_under1_removeNA_noempty %>% 
+  filter(str_trim(manner) != "" & (manner != "UNDETERMINED" & manner != "PENDING") & (race != "Asian" & race != "Other"))
+
+mytable <- round(prop.table((table(infant_mortality_data_under1_removeNA_noempty$race, infant_mortality_data_under1_removeNA_noempty$manner)),2) *100, 2)
+
+mytable
+```
+
+```{r}
+plot(mytable, 
+     ylab = "Percent", 
+     main = "Infant Mortality in Chicago by Race and Manner of Death",
+     col = "steelblue")
+```
+ 
+
