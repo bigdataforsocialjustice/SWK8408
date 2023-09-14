@@ -1,0 +1,89 @@
+---
+title: "Z-scores"
+author: "Barboza-Salerno"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Computing z-scores from p-values
+
+To find the z-score associated with a p-value in R, we can use the `qnorm()` function, which uses the following syntax:
+`qnorm(p, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)`
+
+**Example**: Find the Z-score associated with the median of the distribution
+
+```{r zmed}
+qnorm(.5)  
+```
+
+**Example**: Find the Z-score for the p-value .6629
+
+```{r z6}
+qnorm(.6629)  
+```
+
+## Computing p-values from z-scores
+To find the p-value associated with a z-score in R, we can use the `pnorm()` function, which uses the following syntax:
+`pnorm(q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)` 
+
+What p-value is associated with a z-score = 0?
+
+```{r}
+pnorm(0)  
+```
+
+What p-value is associated with a z-score = .420?
+
+```{r}
+pnorm(.420)  
+```
+
+## Example
+The length of a human pregnancy is normally distributed with a mean of 272 days with a standard deviation of 9 days (Bhat & Kushtagi, 2006).
+
+1. State the random variable.
+2. Find the probability of a pregnancy lasting more than 280 days.
+3. Find the probability of a pregnancy lasting less than 250 days.
+4. Find the probability that a pregnancy lasts between 265 and 280 days.
+5. Find the length of pregnancy that 10% of all pregnancies last less than.
+6. Suppose you meet a woman who says that she was pregnant for less than 250 days. Would this be unusual and what might you think?
+
+#### Answers
+
+1. The random variable, X, is the length of a human pregnancy.
+2. We are looking for P(X > 280) which equals 1 - P(X <=280). Compute z-score and compute 1 - pnorm. (Also use common sense, does 89% seem right?)
+3. We are looking for P(X<=250) which is easily computed
+4. We are looking for P(265 < X < 280) (use common sense), and the compute P(X < 265) and then P(X < 280) and subtract the two
+
+```{r q2}
+# First compute z-score
+(z_score <- (280 - 272)/9)
+1-pnorm(z_score)
+```
+
+
+```{r q3}
+# First compute z-score
+(z_score <- (250 - 272)/9)
+pnorm(z_score)
+```
+
+```{r q4}
+# First compute z-score
+(z_score_lower <- (265-272)/9)
+(z_score_upper <- (280-272)/9)
+pnorm(z_score_upper)-pnorm(z_score_lower)
+
+```
+```{r q5}
+qnorm(.10)
+# note we are now looking for X
+# (X - 272)/9 = -1.282 --> re-arrange and solve for X
+# X = 272 - 1.282(9)
+272 - 1.282*9
+```
+

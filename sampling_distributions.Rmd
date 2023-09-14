@@ -1,0 +1,171 @@
+---
+title: "Sampling Distributions"
+author: "Barboza-Salerno"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Overdose-Age experiment
+
+#### Define the population **distribution** of ages and overdoses, mean and standard deviation ==> 
+
+```{r pops}
+set.seed(1)
+population_of_ages <- rnorm(1940, mean=39.7, sd=3)
+population_of_ods <- rnorm(1940, mean=2.72, sd=.75)
+```
+
+#### Return mean and standard deviation
+#### Note: THESE ARE THE POPULATION PARAMETERS
+
+```{r desc}
+mean(population_of_ages)
+sd(population_of_ages)
+mean(population_of_ods)
+sd(population_of_ods)
+```
+
+#### Let's get a simple histogram
+Note: the syntax 'par(mfrow=c(1,2))' allows me to plot both histograms on the same plotting area. The '1' specifies the column and the '2' specifies the row, so the plotting area will have one row and 2 colums. 
+
+```{r}
+par(mfrow=c(1,2))
+hist(population_of_ages)
+hist(population_of_ods)
+```
+
+#### I am creating a data frame object to store the results
+
+```{r}
+dat <- data.frame(matrix(NA, ncol = 2, nrow = 100))
+```
+
+Draw ONE random sample of size 100, compute mean and standard deviation
+Run multiple times, each time you get a different mean and standard deviation
+
+```{r}
+sample_mean_ages <- sample(population_of_ages, size=100, replace=TRUE)
+sample_mean_ods <- sample(population_of_ods, size=100, replace=TRUE)
+
+mean(sample_mean_ages)
+sd(sample_mean_ages)
+
+mean(sample_mean_ods)
+sd(sample_mean_ods)
+```
+```{r}
+results <- data.frame(
+  OD_pop_mean = round(mean(population_of_ods),2), 
+  OD_sample_mean = round(mean(sample_mean_ods),2),
+  OD_pop_sd = round(sd(population_of_ods),2), 
+  OD_sample_sd = round(sd(sample_mean_ods),2))
+
+knitr::kable(results, caption = "Simulation Results")
+```
+
+#### Draw random 10 random samples of 100 from each population, see how close we are to the 'true' population parameters ==> THESE ARE SAMPLE STATISTICS
+
+```{r}
+for (i in 1:10) {
+  sample_mean_ages <- sample(population_of_ages, size=100, replace=TRUE)
+  sample_mean_ods <- sample(population_of_ods, size=100, replace=TRUE)
+  print(sample_mean_ods)
+  dat <- cbind(sample_mean_ages, sample_mean_ods, dat[ , ]) 
+}
+```
+
+```{r}
+dat <- dat[, -c(21:22)]
+```
+
+#### Sampling distribution 
+*Note:* This is advanced, if you don't understand the code that is fine, focus on understanding the concepts.
+
+Let's focus on ages only for this demonstration. The mean of all sample means is the sampling distribution for these data. To get the histogram of all means, I am first going to use dplyr to SELECT only those samples associated with the mean age. Then, I am going to RESHAPE the data from WIDE to LONG. Then, I will plot the histogram and compute the mean age.
+
+Note: all of the column names that I want to select have the word "ages" in it. So, I will use a shortcut to search for the word "ages" in the column name.
+
+```{r}
+library(tidyr)
+library(dplyr)
+
+dat_ages <- dat[grepl('ages', colnames(dat))]
+colnames(dat_ages)[1] <- "sample_mean_ages.10"
+
+hist(dat_ages$sample_mean_ages.10)
+
+```
+
+### Challenge
+
+We can do some data wrangling and get the means for each sampling distribution. While not necessary, practicing these skills is important. See if you can follow along. First, I computed the means of all columns in one command `summarise_all` tells R to summarize all the columns. The `funs` function tells R which function that you want to apply to all of the columns (i.e., here the mean). Recall the "c" letter stands for "column"
+
+I need to RESHAPE the data from WIDE to LONG. To do that, I use the `gather` function from the `tidyr` package of the tidyverse universe :0
+
+Then, 
+```{r}
+dat_ages_sampling_dist <- dat_ages %>% 
+  summarise_all(list(mean))
+dat_ages_long <- tidyr::gather(dat_ages_sampling_dist)  
+print(dat_ages_long$value)
+
+```
+
+
+#Ball experiment
+
+```{r}
+ball_experiment <- function(){
+  sample(1:100, size = 12, replace = TRUE)
+}
+```
+
+```{r}
+many_rolls <- replicate(1000, ball_experiment())
+```
+
+```{r}
+df <- data.frame(ball_1 = many_rolls[1, ],
+                 ball_2 = many_rolls[2, ],
+                 ball_3 = many_rolls[3, ],
+                 ball_4 = many_rolls[4, ],
+                 ball_5 = many_rolls[5, ],
+                 ball_6 = many_rolls[6, ],
+                 ball_7 = many_rolls[7, ],
+                 ball_8 = many_rolls[8, ],
+                 ball_9 = many_rolls[9, ],
+                 ball_10 = many_rolls[10, ],
+                 ball_11 = many_rolls[11, ],
+                 ball_12 = many_rolls[12, ]
+                 )
+```
+
+
+
+```{r}
+df <- ifelse(df[, 1:12] < 25, "black", "white")
+df <- data.frame(df)
+
+```
+
+```{r}
+df$no_black_balls <- rowSums(df == "black")
+df$no_white_balls <- rowSums(df == "white")
+df$prob_black_ball <- df$no_black_balls/12
+```
+
+```{r}
+hist(df$no_black_balls, breaks=seq(0,12,l=12),
+     freq=FALSE,col="orange",main="Sampling Distribution of Black Balls",
+     xlab="No. of Black Balls Selected",ylab="Prob",yaxs="i",xaxs="i")
+
+```
+
+
+
+
+
