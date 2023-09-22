@@ -1,0 +1,109 @@
+---
+title: "Probability and Binomial Distribution"
+author: "Barboza-Salerno"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The Binomial Distribution
+
+Recall that the formula for the binomia distribution is:
+
+${n! \over k!(n-k)!} p^k(1-p)^{n-k}$
+
+*Note:* This computes the probability of observing *exactly* x successes out of n.
+
+### Example 1
+
+Use the formula in R to calculate the following probability:
+
+Two heads in three tosses of a fair coin.
+
+```{r cars}
+dbinom(x=2, size = 3, prob = .5)
+```
+
+Note, you can also calculate this 'by hand' using the factorial key word
+
+```{r pressure, echo=FALSE}
+n <- 3
+k <- 2
+p <- .5
+
+factorial(n)/(factorial(k)*factorial(n - k)) * p^k * (1-p)^(n-k)
+```
+
+### You Try
+Your turn. Suppose I want to form a research group of two students from three students. Suppose that a new therapy technique has a 33% success rate for depression. You are trying to figure out how many of your clients will be helped by this technique. You are a successful therapist with 100 clients. What is the probability that exactly 20 clients will be relieved of their depression? 
+
+```{r eval = FALSE}
+dbinom(x=20, size = 100, prob = 1/3)
+```
+
+What is the probability that *at least 20* will be relieved? For this, similar to before, we can use the pbinom function which calculates the probability of being less than or equal to a value.
+```{r}
+pbinom(20, size = 100, prob = 1/3)
+```
+
+and, the probability that 20 or more will be relieved...
+
+```{r}
+1 - pbinom(20, size = 100, prob = 1/3)
+```
+
+### Example 2
+Suppose that the probability of a potato rotting after a month in the pantry is 1/3 (and that one potato rotting is independent of the others). Let’s say we have 5 potatoes in the pantry.
+
+1) If we didn’t get around to eating our delicious potatoes for a month, what is the probability that all 5 are still good?
+
+2) What is the probability that at least 3 potatoes are still good?
+
+3) What is the probability that exactly two are still good?
+
+```{r q1}
+(dbinom(x=5, size = 5, prob = 1/3))
+```
+
+Alternatively, we can just multiple 1/3 five times.
+```{r}
+(1/3)^5
+```
+
+
+```{r q2}
+dbinom(x=5, size = 5, prob = 1/3) + dbinom(x=4, size = 5, prob = 1/3) + dbinom(x=3, size = 5, prob = 1/3)
+```
+
+```{r q3}
+dbinom(x=2, size = 5, prob = 1/3) 
+```
+
+### Example 3
+
+The likelihood that a patient with a heart attack dies of the attack is 0.04 (i.e., 4 of 100 die of the attack). Suppose we have 5 patients who suffer a heart attack. 
+
+1) What is the probability that all will survive?
+
+2) What is the probability that no more than 1 person dies of a heart attack?
+
+3) Carefully note all of the assumptions you made in using the binomial distribution to calculate these probabilities.
+
+## Practice
+Calculate the probability of each of the following:
+
+1) Two heads in three tosses of a fair coin
+
+2) Four heads in four tosses of a coin that is unfair, and the probability of a heads is 0.75
+
+3) Three sixes in three rolls of a fair die
+
+4) Less than 4 heads in 8 tosses of a fair coin (.3633)
+
+5) More than 5 heads in 8 tosses of a fair coin (.1445)
+
+5) (challege): How likely is it to pass (> .50) a multiple choice test if you have to guess the answer to each question, each question has four possible choices and the test has 10 total questions? Comment.
+
