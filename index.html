@@ -613,8 +613,6 @@ body.is-phone .view-header, .show-view-header .view-header { display: flex; }
 .is-focused .workspace-leaf.mod-active .view-header-title { color: var(--text-normal); }
 .view-header-title::-webkit-scrollbar { display: none; }
 .view-header-title-container { flex-grow: 1; overflow: hidden; position: relative; justify-content: var(--file-header-justify); display: flex; align-items: center; gap: 0px; white-space: nowrap; }
-.view-header-title-container:not(.mod-at-start)::before { content: " "; position: absolute; top: 0px; left: 0px; width: 30px; height: 100%; background: linear-gradient(to right, var(--background-primary), transparent); }
-.view-header-title-container:not(.mod-at-end)::after { content: " "; position: absolute; top: 0px; right: 0px; width: 30px; height: 100%; background: linear-gradient(to right, transparent, var(--background-primary)); }
 .view-header-title-parent { font-size: var(--file-header-font-size); color: var(--text-muted); min-width: 0px; display: flex; gap: 0px; overflow: hidden; }
 .view-header-title-parent .view-header-breadcrumb { padding: 2px 4px; border-radius: var(--radius-s); }
 @media (hover: hover) {
@@ -791,6 +789,7 @@ body:not(.show-inline-title) .inline-title:not([data-level]) { display: none; }
 @media (hover: hover) {
   .status-bar-item.plugin-editor-status:hover, .status-bar-item.plugin-sync:hover { background-color: var(--background-modifier-hover); }
 }
+.status-bar-item:empty { display: none; }
 .status-bar-item-icon { vertical-align: middle; display: flex; align-items: center; }
 .status-bar-item-segment { margin-right: var(--size-4-2); }
 .status-bar-item-segment:last-child { margin-right: 0px; }
@@ -1017,19 +1016,7 @@ button.mod-warning { background-color: var(--background-modifier-error); color: 
 @media (hover: hover) {
   button.mod-warning:hover { background-color: var(--background-modifier-error-hover); }
 }
-button.mod-destructive { color: var(--background-modifier-error); }
-.icon-button-group { display: inline-block; }
-.icon-button { display: inline-block; color: var(--interactive-normal); }
-.rich-button { width: auto; padding-top: 5px; }
-.rich-button-icon { position: relative; top: 6px; }
-.horizontal-preference-group { display: flex; }
-.horizontal-preference-group button { border-radius: 0px; margin: 0px -1px; }
-.horizontal-preference-group button:first-child { border-top-left-radius: var(--input-radius); border-bottom-left-radius: var(--input-radius); }
-.horizontal-preference-group button:last-child { border-top-right-radius: var(--input-radius); border-bottom-right-radius: var(--input-radius); }
-.horizontal-preference-group button.is-selected { background-color: var(--interactive-accent); color: var(--text-on-accent); }
-@media (hover: hover) {
-  .horizontal-preference-group button.is-selected:hover { background-color: var(--interactive-accent-hover); }
-}
+button.mod-destructive { color: var(--text-error); }
 .card-container { display: flex; }
 .card-container.mod-horizontal { flex-direction: column; }
 .card { background-color: var(--background-secondary-alt); border-radius: 4px; border: 1px solid var(--background-modifier-border); margin: 0px 10px; padding: 15px 30px; display: flex; flex-direction: column; flex-grow: 1; }
@@ -1049,39 +1036,17 @@ button.mod-destructive { color: var(--background-modifier-error); }
 .changelog-item::before { content: attr(data-label); width: 50px; border-radius: var(--radius-m); font-size: var(--font-ui-small); display: inline-block; text-align: center; margin-right: 14px; text-transform: uppercase; letter-spacing: 1px; line-height: 22px; }
 .changelog-item.mod-success::before { background-color: var(--background-modifier-success); }
 .changelog-item.mod-highlighted::before { background-color: var(--interactive-accent); }
-.page-container { width: 50vw; max-width: 1000px; margin: 0px auto; padding: 50px 0px; background-color: var(--background-primary); }
-.page-title { font-weight: var(--font-extrabold); font-size: 46px; }
 [contenteditable] { outline: none; }
-.rich-link { color: var(--text-accent); position: relative; padding-left: 30px; }
-.rich-link-icon { position: absolute; left: 5px; top: 3px; }
-.horizontal-link-group { text-align: center; }
-.horizontal-link-group a, .horizontal-link-group span { margin: 0px 10px; }
-.footer-link-group { list-style: none; display: inline-block; margin: 0px 30px; padding: 0px; }
-.footer-header { font-size: 22px; line-height: 30px; margin-bottom: 10px; }
-.footer-link { margin: 4px 0px; }
-.components-container .menu { position: relative; display: inline-block; }
 .list-item { display: flex; padding: 0px; margin: 8px 0px; gap: var(--size-4-2); align-items: center; }
 .list-item-part.mod-extended { flex-grow: 1; overflow-wrap: anywhere; }
 .list-item-part.clickable-icon { display: flex; align-items: center; justify-content: center; padding: var(--size-2-2); cursor: var(--cursor); border-radius: var(--radius-s); color: var(--icon-color); }
 .list-item-part.clickable-icon:hover, .list-item-part.clickable-icon:active { color: var(--icon-color-hover); background-color: var(--background-modifier-hover); }
-.lightbox { display: none; position: fixed; z-index: 999; width: 100%; height: 100%; text-align: center; top: 0px; left: 0px; background: rgba(0, 0, 0, 0.8); }
-.lightbox img { max-width: 90vw; max-height: 90vh; margin-top: 5vh; }
-.lightbox:target { display: block; }
 .u-center-text { text-align: center; }
 .u-faded-text { color: var(--text-muted); }
 .u-pop { color: var(--text-accent); font-weight: var(--font-semibold); }
 .u-muted { color: var(--text-muted); }
 .u-small { font-size: 0.8em; }
 .u-clickable { cursor: var(--cursor); }
-.u-pop-bg { background-color: var(--interactive-accent); color: var(--text-on-accent); display: inline-block; padding: 3px 16px; border-radius: 20px; opacity: 0.6; cursor: default; }
-@media (hover: hover) {
-  .u-pop-bg:hover { opacity: 1; }
-}
-.components-container h3 { font-weight: var(--font-semibold); font-size: 30px; margin: 60px 0px 25px; }
-.components-container .vertical-tabs-container { height: 300px; }
-.components-container .checkbox-demo { margin: 10px 0px; }
-.components-container .checkbox-demo label { display: inline-block; width: 300px; }
-.components-container .prompt { position: static; }
 .diff-view { height: 100%; overflow: auto; user-select: text; }
 .diff-line { padding: 0 var(--size-4-2); }
 .diff-line.mod-left { background-color: rgba(var(--background-modifier-error-rgb), 0.2); }
@@ -1151,6 +1116,7 @@ svg.svg-icon { height: var(--icon-size); width: var(--icon-size); stroke-width: 
 .nav-file-icon .svg-icon, .suggestion-flair .svg-icon, .menu-item-icon .svg-icon, .status-bar-item .svg-icon { --icon-size: var(--icon-s); --icon-stroke: var(--icon-s-stroke-width); }
 .clickable-icon.side-dock-ribbon-action .svg-icon, .mod-left-split .workspace-tab-header-inner-icon .svg-icon, .mod-right-split .workspace-tab-header-inner-icon .svg-icon { --icon-size: var(--icon-l); --icon-stroke: var(--icon-l-stroke-width); }
 .clickable-icon.side-dock-ribbon-action:active, .mod-left-split .workspace-tab-header-inner-icon:active, .mod-right-split .workspace-tab-header-inner-icon:active { color: var(--icon-color-focused); }
+.is-ios .lucide-more-vertical, .mod-macos .lucide-more-vertical { transform: rotate(90deg); }
 .clickable-icon { app-region: no-drag; background-color: transparent; display: flex; align-items: center; justify-content: center; padding: var(--size-2-2) var(--size-2-3); cursor: var(--cursor); border-radius: var(--clickable-icon-radius); color: var(--icon-color); opacity: var(--icon-opacity); transition: opacity 0.15s ease-in-out 0s; height: auto; }
 @media (hover: hover) {
   .clickable-icon:hover { box-shadow: none; opacity: var(--icon-opacity-hover); color: var(--icon-color-hover); background-color: var(--background-modifier-hover); }
@@ -1165,6 +1131,7 @@ svg.svg-icon { height: var(--icon-size); width: var(--icon-size); stroke-width: 
   .clickable-icon[aria-disabled="true"]:hover { background-color: unset; }
 }
 .clickable-icon.mod-warning { color: var(--text-error); }
+.clickable-icon.mod-filled svg { fill: var(--icon-color); }
 .setting-item-control .clickable-icon { padding: var(--size-2-2); }
 .text-icon-button { app-region: no-drag; display: inline-flex; align-items: center; color: var(--text-muted); font-size: var(--font-ui-small); border-radius: var(--button-radius); padding: var(--size-2-1) var(--size-4-3) var(--size-2-1) var(--size-4-2); height: var(--input-height); font-weight: var(--input-font-weight); cursor: var(--cursor); font-family: inherit; gap: var(--size-2-2); user-select: none; white-space: nowrap; }
 .text-icon-button .text-button-icon { display: flex; align-items: center; justify-content: center; }
@@ -1286,25 +1253,25 @@ body:not(.native-scrollbars) .modal-close-button { right: 12px; }
 .nav-header ~ .search-input-container { padding: 0px; width: calc(100% - var(--size-4-8)); margin: 4px auto; }
 .nav-buttons-container { flex-wrap: wrap; gap: var(--size-2-1); }
 .nav-buttons-container.has-separator { border-bottom: 1px solid var(--background-modifier-border); padding-bottom: var(--size-2-3); margin-bottom: var(--size-4-2); }
-.multi-select-container { display: inline-flex; vertical-align: top; flex-wrap: wrap; min-height: var(--input-height); width: 100%; background: var(--background-modifier-form-field); border: var(--input-border-width) solid var(--background-modifier-border); color: var(--text-normal); font-size: var(--font-ui-small); border-radius: var(--input-radius); outline: none; padding: var(--size-4-1); gap: var(--size-4-1); }
-.multi-select-pill { --icon-size: var(--icon-xs); --icon-stroke: var(--icon-xs-stroke-width); display: flex; align-items: center; background-color: var(--pill-background); border: var(--pill-border-width) solid var(--pill-border-color); border-radius: var(--pill-radius); color: var(--pill-color); cursor: var(--cursor); font-weight: var(--pill-weight); padding: var(--pill-padding-y) 0; line-height: 1; max-width: 100%; gap: var(--size-2-1); }
+body { --pill-focus-width: calc(100% + 6px); --pill-focus-left-adjust: -4px; }
+.multi-select-container { cursor: text; display: inline-flex; vertical-align: top; flex-wrap: wrap; min-height: var(--input-height); width: 100%; background: var(--background-modifier-form-field); border: var(--input-border-width) solid var(--background-modifier-border); color: var(--text-normal); font-size: var(--font-ui-small); border-radius: var(--input-radius); outline: none; padding: var(--size-4-1); gap: var(--size-4-1); }
+.multi-select-pill { --icon-size: var(--icon-xs); --icon-stroke: var(--icon-xs-stroke-width); display: flex; align-items: center; background-color: var(--pill-background); border: var(--pill-border-width) solid var(--pill-border-color); border-radius: var(--pill-radius); color: var(--pill-color); cursor: var(--cursor); font-weight: var(--pill-weight); padding: var(--pill-padding-y) 0; line-height: 1; max-width: 100%; gap: var(--size-2-1); position: relative; }
+.multi-select-pill:focus::after { content: ""; display: block; position: absolute; pointer-events: none; border-radius: var(--pill-radius); left: var(--pill-focus-left-adjust); width: var(--pill-focus-width); height: 100%; box-shadow: 0 0 0 1px var(--background-modifier-border-focus), inset 0 0 0 1px var(--background-modifier-border-focus); }
 @media (hover: hover) {
   .multi-select-pill:hover { background-color: var(--pill-background-hover); border: var(--pill-border-width) solid var(--pill-border-color-hover); color: var(--pill-color-hover); text-decoration: var(--pill-decoration-hover); }
 }
 .multi-select-pill-content { margin-left: var(--pill-padding-x); }
 .multi-select-pill-remove-button { margin-right: min(var(--size-2-3),var(--pill-padding-x)); cursor: var(--cursor); color: var(--pill-color-remove); border-radius: var(--radius-s); display: flex; align-items: center; --icon-size: var(--icon-xs); --icon-stroke: var(--icon-xs-stroke-width); }
 .multi-select-pill-remove-button:hover { color: var(--pill-color-remove-hover); }
-.multi-select-input { cursor: text; font-family: var(--font-interface); width: 2ch; min-width: 2ch; flex-grow: 1; color: var(--text-normal); background-color: inherit; border: none; }
+.multi-select-input { cursor: text; font-family: var(--font-interface); min-width: 1ch; max-width: max-content; color: var(--text-normal); background-color: inherit; border: none; overflow-x: auto; white-space: nowrap; }
+.multi-select-input::-webkit-scrollbar { display: none; }
+.multi-select-input::before { content: "​"; }
 .multi-select-input:empty::before { content: attr(placeholder); color: var(--text-faint); pointer-events: none; }
 @keyframes multi-select-highlight { 
   0% { color: var(--text-warning); --link-color: var(--text-warning); }
 }
 .multi-select-duplicate { animation: 2000ms ease-in 0s 1 normal none running multi-select-highlight; }
 .popover { background-color: var(--background-primary); border: 1px solid var(--background-modifier-border); box-shadow: var(--shadow-s); border-radius: var(--radius-m); padding: var(--size-4-5); position: relative; max-height: 95vh; }
-.popover-title { font-weight: var(--font-extrabold); }
-.popover-content { margin: var(--size-4-2) 0; }
-.components-container .popover { width: 300px; margin-top: var(--size-4-5); }
-.components-container .popover .popover-content { font-size: var(--font-ui-medium); }
 .popover.hover-popover { position: absolute; z-index: var(--layer-popover); max-width: 80vw; min-height: 60px; overflow: hidden; width: fit-content; padding: 0px; }
 .popover.hover-popover > * { width: var(--popover-width); }
 .popover.hover-popover .markdown-preview-view { font-size: var(--popover-font-size); }
@@ -1777,7 +1744,7 @@ input.metadata-property-key-input:active, input.metadata-property-key-input:focu
 .metadata-property .metadata-input-text { text-overflow: ellipsis; overflow: hidden; }
 .metadata-property .multi-select-container input { background-color: transparent; }
 .metadata-property .multi-select-container { padding: var(--size-4-1) var(--size-4-2); }
-.metadata-property[data-property-key="tags"] { --pill-color: var(--tag-color); --pill-color-hover: var(--tag-color-hover); --pill-color-remove: var(--tag-color); --pill-color-remove-hover: var(--tag-color-hover); --pill-decoration: var(--tag-decoration); --pill-decoration-hover: var(--tag-decoration-hover); --pill-background: var(--tag-background); --pill-background-hover: var(--tag-background-hover); --pill-border-color: var(--tag-border-color); --pill-border-color-hover: var(--tag-border-color-hover); --pill-border-width: var(--tag-border-width); --pill-padding-x: var(--tag-padding-x); --pill-padding-y: var(--tag-padding-y); --pill-radius: var(--tag-radius); --pill-weight: var(--tag-weight); }
+.metadata-property[data-property-key="tags"] { --pill-color: var(--tag-color); --pill-color-hover: var(--tag-color-hover); --pill-color-remove: var(--tag-color); --pill-color-remove-hover: var(--tag-color-hover); --pill-decoration: var(--tag-decoration); --pill-decoration-hover: var(--tag-decoration-hover); --pill-background: var(--tag-background); --pill-background-hover: var(--tag-background-hover); --pill-border-color: var(--tag-border-color); --pill-border-color-hover: var(--tag-border-color-hover); --pill-border-width: var(--tag-border-width); --pill-padding-x: var(--tag-padding-x); --pill-padding-y: var(--tag-padding-y); --pill-radius: var(--tag-radius); --pill-weight: var(--tag-weight); --pill-focus-width: 100%; --pill-focus-left-adjust: 0; }
 .metadata-property[data-property-key="tags"] .multi-select-pill { cursor: var(--cursor-link); }
 .metadata-property:not([data-property-key="tags"]) { --pill-border-width: 0; --pill-padding-x: 0; --pill-padding-y: 0; --pill-color: var(--metadata-input-text-color); }
 .metadata-property:not([data-property-key="tags"]) .multi-select-pill { line-height: var(--line-height-tight); }
@@ -1792,7 +1759,6 @@ input.metadata-property-key-input:active, input.metadata-property-key-input:focu
 }
 .metadata-property-value .mod-unknown { color: var(--text-warning); padding: var(--size-4-1) var(--size-4-2); font-size: var(--metadata-input-font-size); text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .metadata-property-value .multi-select-input { font-size: inherit; }
-.metadata-property-value .multi-select-input:focus { min-width: 10ch; }
 .metadata-property-value .multi-select-container, .metadata-property-value .metadata-link-inner, .metadata-property-value input { font-size: var(--metadata-input-font-size); }
 .metadata-property-value .multi-select-container { --background-modifier-form-field: transparent; --background-modifier-border: transparent; }
 .metadata-property-value .multi-select-container .multi-select-pill.is-invalid { --pill-background: transparent; --pill-color: var(--text-error); --pill-color-remove: var(--text-error); }
@@ -2686,6 +2652,9 @@ body.is-phone .suggestion-bg { display: block; z-index: var(--layer-modal); }
 .mobile-image-viewer img { align-self: center; max-height: 100%; max-width: 100%; }
 .mod-tappable { transition: opacity 0.15s ease-in-out 0s; }
 .mod-tappable.mod-tap { opacity: 0.5; }
+.mod-fade { --scroll-fade-offset-right: 0; --scroll-fade-offset-left: 0; }
+.mod-fade:not(.mod-at-start)::before { content: " "; position: absolute; top: 0px; left: var(--scroll-fade-offset-left); width: 30px; height: 100%; background: linear-gradient(to right, var(--background-primary), transparent); }
+.mod-fade:not(.mod-at-end)::after { content: " "; position: absolute; top: 0px; right: var(--scroll-fade-offset-right); width: 30px; height: 100%; background: linear-gradient(to right, transparent, var(--background-primary)); }
 .is-mobile .document-search-container { height: auto; margin-left: 0px; margin-right: 0px; padding: 0 var(--size-4-4) var(--size-4-2); border-bottom: var(--border-width) solid var(--background-modifier-border); }
 .is-mobile .document-search-container.mod-replace-mode { height: auto; }
 .is-mobile .document-search, .is-mobile .document-replace { height: auto; padding: 0px; }
@@ -2909,12 +2878,12 @@ body.is-tablet .mobile-navbar { display: none; }
 .pull-out-action { top: 50%; padding: var(--size-4-3) var(--size-4-4); border-radius: 40px; margin: 0 var(--size-4-4); }
 .mobile-toolbar { app-region: drag; flex: 0 0 auto; width: 100%; overflow-y: hidden; background-color: var(--background-primary); bottom: 0px; z-index: var(--layer-menu); }
 .is-tablet.is-ios .mobile-toolbar { padding-bottom: 16px; }
-.mobile-toolbar-options-container { height: var(--mobile-toolbar-height); display: flex; overflow: auto hidden; width: 100%; padding: 0px 10px; }
-.mobile-toolbar-options-container::-webkit-scrollbar { width: 0px !important; height: 0px !important; }
+.mobile-toolbar-options-container { --scroll-fade-offset-right: 50px; position: relative; height: var(--mobile-toolbar-height); display: flex; width: 100%; }
+.mobile-toolbar-options-list { display: flex; width: 100%; overflow: auto hidden; padding: 0px 10px; }
+.mobile-toolbar-options-list::-webkit-scrollbar { width: 0px !important; height: 0px !important; }
+.mobile-toolbar-floating-options { display: flex; }
+.mobile-toolbar-floating-options .mobile-toolbar-option { min-width: 50px; color: var(--text-accent); }
 .mobile-toolbar-option { display: flex; font-size: var(--font-ui-medium); color: var(--text-muted); font-family: var(--font-monospace); justify-content: center; align-items: center; min-width: 50px; position: relative; left: 0px; transition: left 200ms ease-in-out 0s; }
-.mobile-toolbar-option.mod-ghost { position: absolute; transition: left 250ms ease-in-out 0s; }
-.mobile-toolbar-option.mod-ghost::before { content: " "; position: absolute; width: 100%; height: 100%; top: 0px; left: 0px; border-radius: 6px; background-color: var(--interactive-accent); }
-.mobile-toolbar-done-button { position: fixed; margin-top: var(--size-4-2); margin-right: var(--size-4-3); top: env(safe-area-inset-top, 20px); right: env(safe-area-inset-right, 20px); z-index: var(--layer-status-bar); }
 .is-mobile .suggestion-item { padding: var(--size-4-2) var(--size-4-3); }
 .is-tablet.theme-dark .suggestion-container { background-color: var(--background-secondary); }
 .is-phone .suggestion-item.mod-group { border-radius: 0px; }
@@ -6860,7 +6829,7 @@ settings:
 			<!-- Graph View Data -->
 			<script>
 			let nodes=
-{"nodeCount":41,"linkCount":45,"radii":[7,7,7,6.4375,6.4375,6.4375,6.081597222222221,6.081597222222221,5.638888888888889,5.638888888888889,5.109375,5.109375,5.109375,4.493055555555555,4.493055555555555,3.7899305555555554,3.7899305555555554,3.7899305555555554,3.7899305555555554,3.7899305555555554,3.7899305555555554,3.7899305555555554,3.7899305555555554,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],"labels":["Day 2","Datasets","Day 1","Day 5","Day 4","Day 3","Syllabus","Example 1","Mapping Homelessness in San Diego","Analyzing Places Data","San Diego Regional Data Library data example","National Survey of Child Health","Add Health","In-school suspensions and academic achievement","Fatal police shootings","Housing and Transportation Affordability Index","Household Pulse Survey Data Tables","Geographic differences in discharge dispositions","Final web scrap medium","Data example","Consumer Complaints","Add-on Packages & Modules","A note on data mining","Untitled","TBI and ACEs Plots","plots","index","Final Assignment","()","Research Reminders","Note taking","Lit Reviews","Example Template","Research Notes","Daily Note","Research Paper","research notes","Research Ideas","focus_group","Highlighting structure","Cheat Sheet"],"paths":["day-2.html","datasets.html","day-1.html","day-5.html","day-4.html","day-3.html","syllabus.html","example-1.html","mapping-homelessness-in-san-diego.html","analyzing-places-data.html","san-diego-regional-data-library-data-example.html","national-survey-of-child-health.html","add-health.html","in-school-suspensions-and-academic-achievement.html","fatal-police-shootings.html","housing-and-transportation-affordability-index.html","household-pulse-survey-data-tables.html","geographic-differences-in-discharge-dispositions.html","final-web-scrap-medium.html","data-example.html","consumer-complaints.html","add-on-packages-&-modules.html","a-note-on-data-mining.html","untitled.html","tbi-and-aces-plots.html","plots.html","index.html","final-assignment.html","().html","00-meta/003-tools/research-reminders.html","00-meta/003-tools/note-taking.html","00-meta/003-tools/lit-reviews.html","00-meta/002-templates/example-template.html","00-meta/002-templates/research-notes.html","00-meta/002-templates/daily-note.html","00-meta/002-templates/meta/zdc-templates/research-paper.html","00-meta/002-templates/meta/zdc-templates/research-notes.html","00-meta/002-templates/meta/zdc-templates/research-ideas.html","00-meta/002-templates/meta/zdc-templates/focus_group.html","00-meta/001-structure/highlighting-structure.html","00-meta/001-structure/cheat-sheet.html"],"linkSources":[9,19,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,0,0,0,0,5,5,5,5,4,4,4,3,3,3,3,7,7,13,8,8,8,10,6,6,6,6,6],"linkTargets":[1,9,0,3,12,20,14,15,9,11,16,22,10,21,18,7,1,13,9,7,11,12,0,2,11,14,2,7,8,12,2,0,5,4,17,0,10,0,2,4,2,0,5,4,3]};
+{"nodeCount":41,"linkCount":45,"radii":[7,7,7,6.4375,6.4375,6.4375,6.081597222222221,6.081597222222221,5.638888888888889,5.638888888888889,5.109375,5.109375,5.109375,4.493055555555555,4.493055555555555,3.7899305555555554,3.7899305555555554,3.7899305555555554,3.7899305555555554,3.7899305555555554,3.7899305555555554,3.7899305555555554,3.7899305555555554,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],"labels":["Day 1","Day 2","Datasets","Day 5","Day 4","Day 3","Syllabus","Example 1","Mapping Homelessness in San Diego","Analyzing Places Data","San Diego Regional Data Library data example","National Survey of Child Health","Add Health","In-school suspensions and academic achievement","Fatal police shootings","Housing and Transportation Affordability Index","Geographic differences in discharge dispositions","Household Pulse Survey Data Tables","Final web scrap medium","Data example","Consumer Complaints","A note on data mining","Add-on Packages & Modules","TBI and ACEs Plots","Untitled","plots","index","Final Assignment","Research Reminders","Note taking","Lit Reviews","Research Notes","Example Template","Daily Note","Research Paper","focus_group","research notes","Research Ideas","Highlighting structure","Cheat Sheet","()"],"paths":["day-1.html","day-2.html","datasets.html","day-5.html","day-4.html","day-3.html","syllabus.html","example-1.html","mapping-homelessness-in-san-diego.html","analyzing-places-data.html","san-diego-regional-data-library-data-example.html","national-survey-of-child-health.html","add-health.html","in-school-suspensions-and-academic-achievement.html","fatal-police-shootings.html","housing-and-transportation-affordability-index.html","geographic-differences-in-discharge-dispositions.html","household-pulse-survey-data-tables.html","final-web-scrap-medium.html","data-example.html","consumer-complaints.html","a-note-on-data-mining.html","add-on-packages-&-modules.html","tbi-and-aces-plots.html","untitled.html","plots.html","index.html","final-assignment.html","00-meta/003-tools/research-reminders.html","00-meta/003-tools/note-taking.html","00-meta/003-tools/lit-reviews.html","00-meta/002-templates/research-notes.html","00-meta/002-templates/example-template.html","00-meta/002-templates/daily-note.html","00-meta/002-templates/meta/zdc-templates/research-paper.html","00-meta/002-templates/meta/zdc-templates/focus_group.html","00-meta/002-templates/meta/zdc-templates/research-notes.html","00-meta/002-templates/meta/zdc-templates/research-ideas.html","00-meta/001-structure/highlighting-structure.html","00-meta/001-structure/cheat-sheet.html","().html"],"linkSources":[9,19,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,1,1,1,1,5,5,5,5,4,4,4,3,3,3,3,7,7,13,8,8,8,10,6,6,6,6,6],"linkTargets":[2,9,1,3,12,20,14,15,9,11,17,21,10,22,18,7,2,13,9,7,11,12,1,0,11,14,0,7,8,12,0,1,5,4,16,1,10,1,0,4,0,1,5,4,3]};
 			let attractionForce = 1;
 			let linkLength = 10;
 			let repulsionForce = 150;
@@ -7815,7 +7784,7 @@ window.onload = function()
 }
 </script>
 
-			</head><body class="theme-dark mod-windows is-frameless is-hidden-frameless obsidian-app show-inline-title show-view-header is-maximized outliner-plugin-better-lists outliner-plugin-dnd" style="--zoom-factor:1.2; --font-text-size:17px; --line-width:50em; --line-width-adaptive:50em; --file-line-width:50em; --content-width:500em; --sidebar-width:25em; --collapse-arrow-size:0.4em; --tree-horizontal-spacing:1em; --tree-vertical-spacing:0.5em; --sidebar-margin:12px;"><div class="webpage-container"><div class="sidebar-left sidebar"><div class="sidebar-content"><div><label class="theme-toggle-container" for="theme_toggle"><input class="theme-toggle-input" type="checkbox" id="theme_toggle"><div class="toggle-background"></div></label></div><div class="tree-container file-tree mod-nav-indicator" data-depth="0"><div class="tree-header"><span class="sidebar-section-header">Bootcamp</span><button class="clickable-icon collapse-tree-button is-collapsed"><iconify-icon icon="ph:arrows-in-line-horizontal-bold" width="18px" height="18px" rotate="90deg" color="currentColor"></iconify-icon></button></div><div class="tree-scroll-area"></div></div></div></div><div class="document-container"><div class="markdown-preview-view markdown-rendered node-insert-event allow-fold-headings show-indentation-guide allow-fold-lists show-properties" style="tab-size: 4;"><style id="MJX-CHTML-styles"></style><div class="markdown-preview-sizer markdown-preview-section" style="min-height: 1988px; padding-bottom: ; padding-top: var(--file-margins); padding-right: var(--file-margins); padding-left: var(--file-margins); width: 100%; position: absolute;"><div class="markdown-preview-pusher" style="width: 1px; height: 0.1px; margin-bottom: 0px;"></div><div class="mod-header"><div class="inline-title" contenteditable="true" spellcheck="true" autocapitalize="on" tabindex="-1" enterkeyhint="done">index</div><div class="metadata-container" tabindex="-1" data-property-count="0"><div class="metadata-properties-heading" tabindex="0"><div class="collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="metadata-properties-title">Properties</div></div><div class="metadata-content"><div class="metadata-properties"></div><div class="metadata-add-button text-icon-button" tabindex="0"><span class="text-button-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span><span class="text-button-label">Add property</span></div></div></div></div><div><h2 data-heading="Class Information" id="Class_Information" style="display: flex;"><div class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div>Class Information</h2></div><div><p>Course: SWK 8408 Statistics I<br>
+			</head><body class="theme-dark mod-windows is-frameless is-hidden-frameless obsidian-app show-inline-title show-view-header is-maximized outliner-plugin-better-lists outliner-plugin-dnd" style="--zoom-factor:1.2; --font-text-size:17px; --line-width:50em; --line-width-adaptive:50em; --file-line-width:50em; --content-width:500em; --sidebar-width:25em; --collapse-arrow-size:0.4em; --tree-horizontal-spacing:1em; --tree-vertical-spacing:0.5em; --sidebar-margin:12px;"><div class="webpage-container"><div class="sidebar-left sidebar"><div class="sidebar-content"><div><label class="theme-toggle-container" for="theme_toggle"><input class="theme-toggle-input" type="checkbox" id="theme_toggle"><div class="toggle-background"></div></label></div><div class="tree-container file-tree mod-nav-indicator" data-depth="0"><div class="tree-header"><span class="sidebar-section-header">Bootcamp</span><button class="clickable-icon collapse-tree-button is-collapsed"><iconify-icon icon="ph:arrows-in-line-horizontal-bold" width="18px" height="18px" rotate="90deg" color="currentColor"></iconify-icon></button></div><div class="tree-scroll-area"></div></div></div></div><div class="document-container"><div class="markdown-preview-view markdown-rendered node-insert-event allow-fold-headings show-indentation-guide allow-fold-lists show-properties" style="tab-size: 4;"><style id="MJX-CHTML-styles"></style><div class="markdown-preview-sizer markdown-preview-section" style="min-height: 2038px; padding-bottom: ; padding-top: var(--file-margins); padding-right: var(--file-margins); padding-left: var(--file-margins); width: 100%; position: absolute;"><div class="markdown-preview-pusher" style="width: 1px; height: 0.1px; margin-bottom: 0px;"></div><div class="mod-header"><div class="inline-title" contenteditable="true" spellcheck="true" autocapitalize="on" tabindex="-1" enterkeyhint="done">index</div><div class="metadata-container" tabindex="-1" data-property-count="0"><div class="metadata-properties-heading" tabindex="0"><div class="collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="metadata-properties-title">Properties</div></div><div class="metadata-content"><div class="metadata-properties"></div><div class="metadata-add-button text-icon-button" tabindex="0"><span class="text-button-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span><span class="text-button-label">Add property</span></div></div></div></div><div><h2 data-heading="Class Information" id="Class_Information" style="display: flex;"><div class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div>Class Information</h2></div><div><p>Course: SWK 8408 Statistics I<br>
 Semester: Autumn 2023</p></div><div><h2 data-heading="👨‍💼 Instructor Information" id="👨‍💼_Instructor_Information" style="display: flex;"><div class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div>👨‍💼 Instructor Information</h2></div><div><p>Name: <a data-tooltip-position="top" aria-label="https://barboza-salerno.netlify.app/" rel="noopener" class="external-link" href="https://barboza-salerno.netlify.app/" target="_blank">Gia Elise Barboza-Salerno</a> (they/them)<br>
 Cell: 860-710-3705<br>
 Email: <a data-tooltip-position="top" aria-label="mailto:barboza-salerno.1@osu.edu" rel="noopener" class="external-link" href="mailto:barboza-salerno.1@osu.edu" target="_blank">barboza-salerno.1@osu.edu</a></p></div><div><h2 data-heading="📅Schedule" id="📅Schedule" style="display: flex;"><div class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div>📅Schedule</h2></div><div><p>Make sure to check out the related <a data-tooltip-position="top" aria-label="https://bigdataforsocialjustice.github.io/databootcamp/" rel="noopener" class="external-link" href="https://bigdataforsocialjustice.github.io/databootcamp/" target="_blank">Syllabus</a> for the data bootcamp we did, which contains links to the software and other arguably useful information. </p></div><div style="overflow-x: auto;"><table>
@@ -7919,6 +7888,15 @@ Email: <a data-tooltip-position="top" aria-label="mailto:barboza-salerno.1@osu.e
 <td><a data-tooltip-position="top" aria-label="https://github.com/bigdataforsocialjustice/SWK8408/blob/master/week9.pptx" rel="noopener" class="external-link" href="https://github.com/bigdataforsocialjustice/SWK8408/blob/master/week9.pptx" target="_blank">Week 9</a></td>
 <td><a data-tooltip-position="top" aria-label="https://github.com/bigdataforsocialjustice/SWK8408/blob/master/clt_fun.R" rel="noopener" class="external-link" href="https://github.com/bigdataforsocialjustice/SWK8408/blob/master/clt_fun.R" target="_blank">clt fun</a></td>
 <td><a data-tooltip-position="top" aria-label="https://github.com/bigdataforsocialjustice/SWK8408/blob/master/Data.zip" rel="noopener" class="external-link" href="https://github.com/bigdataforsocialjustice/SWK8408/blob/master/Data.zip" target="_blank">Data files</a></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>10/27</td>
+<td>Correlation/SLR</td>
+<td><a data-tooltip-position="top" aria-label="https://github.com/bigdataforsocialjustice/SWK8408/blob/master/simple%20linear%20regression%20-%20final.pdf" rel="noopener" class="external-link" href="https://github.com/bigdataforsocialjustice/SWK8408/blob/master/simple%20linear%20regression%20-%20final.pdf" target="_blank">Week 10</a></td>
+<td></td>
+<td><a data-tooltip-position="top" aria-label="https://github.com/bigdataforsocialjustice/SWK8408/blob/master/week10_data.zip" rel="noopener" class="external-link" href="https://github.com/bigdataforsocialjustice/SWK8408/blob/master/week10_data.zip" target="_blank">Class data</a></td>
 <td></td>
 </tr>
 </tbody>
